@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+  <h2 style="color:blue">Register User Data</h2>
+  <p></p>
+  <table class="table">
+    <thead>
+      <tr class="danger">
+        <th>Name</th>
+        <th>Email</th>
+        <th>Password</th>
+        <th>Action</th>
+        <th>Action1</th>
+      </tr>
+    </thead>
+    <tbody> 
+      {% for i in user_obj %}    
+      <tr class="success">
+        <td>{{i.name}}</td>
+        <td>{{i.email}}</td>
+        <td>{{i.password}}</td>
+        <td><a href="{% url "delete" i.id %}">Delete</a></td>
+        <td><a href="{% url "update" i.id %}">Update</a></td>
+      </tr>
+      {% endfor %}
+      <!--tr class="warning">
+        <th colspan="5" style="color:Violet"><button type="button" class="btn btn-violet">Sign Up</button> </th>
+        
+      </tr-->
+    </tbody>
+  </table>
+</div>
+
+</body>
+</html>
