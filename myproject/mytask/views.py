@@ -1,11 +1,17 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import *
-from django.contrib.auth.hashers import make_password
+from django.contrib.auth.hashers import make_password,check_password
 
 # Create your views here.
 def index(request):
     return render(request,"index.html")
+
+def register(request):
+    return render(request,"index.html")
+
+def login(request):
+    return render(request,"login.html")
 
 def creat_user(request):
     if request.method == 'POST':
@@ -39,3 +45,18 @@ def update_user(request):
         email=request.POST.get("email")
         User.objects.filter(id=uid).update(name=name,email=email)
         return redirect("/table/")
+    
+def login_user(request):
+    if request.method =="POST":
+        email=request.POST['email']
+        password=request.POST['password']
+        if User.objects.filter(email=email).exists():
+            user=User.objects.get(email=email)
+            password=user.password
+            if check_password(password,user.password):
+                return redirect("/table/")
+            else:
+                return HttpResponse("password incorrect")
+            
+        else:
+            return HttpResponse("email id not register")
